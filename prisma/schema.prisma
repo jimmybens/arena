@@ -82,3 +82,10 @@ model Match {
 
   @@schema("dev")
 }
+
+model Test {
+  id      Int    @id @default(autoincrement())
+  message String
+
+  @@schema("dev")
+}
