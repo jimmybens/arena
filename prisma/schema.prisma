@@ -79,5 +79,12 @@ model Match {
 model Test {
   id      Int    @id @default(autoincrement())
   message String
+}
 
+model Room {
+  id          String   @id @default(cuid())
+  name        String
+  mode        String
+  playerCount Int      @default(0)
+  createdAt   DateTime @default(now())
 }
