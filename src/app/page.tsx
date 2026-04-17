@@ -15,8 +15,10 @@ export default async function Home() {
   let dbError: string | null = null;
 
   try {
-    const result = await prisma.$queryRaw<{ schema: string }[]>`SELECT current_schema() as schema`;
-    currentSchema = result[0]?.schema || 'unknown';
+    // La requête SQL brute avec le driver pg lira toujours le default search_path (public)
+    // On extrait donc le schéma directement depuis la variable d'environnement pour plus de fiabilité.
+    const url = new URL(process.env.DATABASE_URL || 'postgresql://localhost/postgres?schema=public');
+    currentSchema = url.searchParams.get('schema') || 'public';
     rooms = await prisma.room.findMany({ orderBy: { createdAt: 'desc' } });
   } catch (e: any) {
     dbError = e.message;
