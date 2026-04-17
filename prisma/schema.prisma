@@ -3,12 +3,10 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
-  schemas  = ["public", "dev"]
 }
 
 model User {
@@ -24,7 +22,6 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@schema("dev")
 }
 
 model Account {
@@ -46,7 +43,6 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
-  @@schema("dev")
 }
 
 model Session {
@@ -58,7 +54,6 @@ model Session {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@schema("dev")
 }
 
 model VerificationToken {
@@ -67,7 +62,6 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
-  @@schema("dev")
 }
 
 model Match {
@@ -80,12 +74,10 @@ model Match {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@schema("dev")
 }
 
 model Test {
   id      Int    @id @default(autoincrement())
   message String
 
-  @@schema("dev")
 }
