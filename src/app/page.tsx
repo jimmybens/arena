@@ -5,12 +5,12 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   let dbStatus = "Connecting...";
   let currentSchema = "unknown";
-  
+
   try {
     const testCount = await prisma.test.count();
-    const result = await prisma.$queryRaw<{schema: string}[]>`SELECT current_schema() as schema`;
+    const result = await prisma.$queryRaw<{ schema: string }[]>`SELECT current_schema() as schema`;
     currentSchema = result[0]?.schema || "unknown";
-    dbStatus = `Connecté à Supabase ✅`;
+    dbStatus = `Connecté à Supabase ✅✅`;
   } catch (e: any) {
     dbStatus = `Erreur BDD: ${e.message}`;
   }
@@ -26,20 +26,20 @@ export default async function Home() {
         <p className="mt-8 text-2xl font-semibold">
           ARENA - TEST DE STACK COMPLET
         </p>
-        
+
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-left p-6 border border-border rounded-xl bg-muted/30">
           <div className="flex flex-col space-y-1">
             <span className="text-sm text-muted-foreground uppercase tracking-wider">Environnement</span>
             <span className="text-xl font-bold text-primary">{envName.toUpperCase()}</span>
           </div>
-          
+
           <div className="flex flex-col space-y-1">
             <span className="text-sm text-muted-foreground uppercase tracking-wider">Schéma BDD actif</span>
             <span className="text-xl font-mono text-blue-500 font-bold">{currentSchema}</span>
           </div>
 
           <div className="flex flex-col space-y-1">
-            <span className="text-sm text-muted-foreground uppercase tracking-wider">Connexion BDD</span>
+            <span className="text-sm text-muted-foreground uppercase tracking-wider">Connexion à la BDD</span>
             <span className="text-xl font-bold text-green-500">{dbStatus}</span>
           </div>
         </div>
