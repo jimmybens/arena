@@ -7,8 +7,9 @@ export default async function Home() {
   let currentSchema = "unknown";
 
   try {
-    const testCount = await prisma.test.count();
-    const result = await prisma.$queryRaw<{ schema: string }[]>`SELECT current_schema() as schema`;
+    const result = await prisma.$queryRaw<{ schema: string; version: string }[]>`
+      SELECT current_schema() as schema, version() as version
+    `;
     currentSchema = result[0]?.schema || "unknown";
     dbStatus = `Connecté à Supabase ✅✅`;
   } catch (e: any) {
